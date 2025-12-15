@@ -4,6 +4,7 @@ import { mappingService } from "../services/mappingService";
 import { PaginatedResponse } from "../services/marketplaceService";
 import { mappingKeys } from "@/lib/queryKeys";
 import type { CreateMappingInput } from "../services/mappingService";
+import { getApiErrorMessage } from "@/lib/api-manager";
 
 export const useMappings = (page: number = 1) => {
   return useQuery<PaginatedResponse<Mapping>>({
@@ -30,7 +31,11 @@ export const useCreateMapping = (page: number = 1) => {
     mutationFn: (payload: CreateMappingInput) =>
       mappingService.createMapping(payload),
     onSuccess: () => {
+      alert("Mapping created successfully");
       queryClient.invalidateQueries({ queryKey: mappingKeys.list(page), exact: false, });
+    },
+    onError: (error) => {
+      alert(getApiErrorMessage(error));
     },
   });
 };

@@ -3,6 +3,7 @@ import { SellerFile } from "../types";
 import { sellerFileService } from "../services/sellerFileService";
 import { PaginatedResponse } from "../services/marketplaceService";
 import { sellerFileKeys } from "@/lib/queryKeys";
+import { getApiErrorMessage } from "@/lib/api-manager";
 
 export const useSellerFiles = (page: number = 1) => {
   return useQuery<PaginatedResponse<SellerFile>>({
@@ -28,7 +29,11 @@ export const useUploadSellerFile = (page: number = 1) => {
   return useMutation({
     mutationFn: (file: File) => sellerFileService.uploadSellerFile(file),
     onSuccess: () => {
+      alert("Seller file uploaded successfully");
       queryClient.invalidateQueries({ queryKey: sellerFileKeys.list(page), exact: false, });
+    },
+    onError: (error) => {
+      alert(getApiErrorMessage(error));
     },
   });
 };

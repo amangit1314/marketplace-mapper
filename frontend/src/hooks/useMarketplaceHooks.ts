@@ -12,6 +12,7 @@ import {
 
 import type { CreateMarketplaceTemplatePayload } from "../services/marketplaceService";
 import { marketplaceKeys } from "@/lib/queryKeys";
+import { getApiErrorMessage } from "@/lib/api-manager";
 
 export const useMarketplaceTemplates = (page: number = 1) => {
   return useQuery<PaginatedResponse<MarketplaceTemplate>>({
@@ -39,7 +40,11 @@ export const useCreateMarketplaceTemplate = (page: number = 1) => {
       marketplaceService.createTemplate(payload),
     onSuccess: () => {
       // refetch list
+      alert("Marketplace template created successfully");
       queryClient.invalidateQueries({ queryKey: marketplaceKeys.list(page), exact: false, });
+    },
+    onError: (error) => {
+      alert(getApiErrorMessage(error));
     },
   });
 };

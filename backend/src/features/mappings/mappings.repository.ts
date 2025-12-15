@@ -7,6 +7,33 @@ const PAGE_SIZE = 10;
  * Paginated list of mappings with basic relations for list view.
  * Used for: "Saved mappings" list page.
  */
+// export async function findAllWithPagination(page: number) {
+//   const skip = (page - 1) * PAGE_SIZE;
+
+//   const [items, total] = await Promise.all([
+//     prisma.mapping.findMany({
+//       orderBy: { createdAt: "desc" },
+//       skip,
+//       take: PAGE_SIZE,
+//       include: {
+//         marketplaceTemplate: true,
+//         sellerFile: true,
+//       },
+//     }),
+//     prisma.mapping.count(),
+//   ]);
+
+//   const totalPages = Math.ceil(total / PAGE_SIZE) || 1;
+
+//   return {
+//     items,
+//     total,
+//     page,
+//     pageSize: PAGE_SIZE,
+//     totalPages,
+//   };
+// }
+
 export async function findAllWithPagination(page: number) {
   const skip = (page - 1) * PAGE_SIZE;
 

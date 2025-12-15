@@ -68,8 +68,8 @@ export default function MappingList() {
                 {data.items.map((m) => (
                   <TableRow key={m.id}>
                     <TableCell>{m.id}</TableCell>
-                    <TableCell>{m.marketplaceTemplateId}</TableCell>
-                    <TableCell>{m.sellerFileId}</TableCell>
+                    <TableCell>{m.marketplaceTemplate?.name ?? `#${m.marketplaceTemplateId}`}</TableCell>
+                    <TableCell>{m.sellerFile?.fileName ?? `#${m.sellerFileId}`}</TableCell>
                     <TableCell>
                       {new Date(m.createdAt).toLocaleString()}
                     </TableCell>

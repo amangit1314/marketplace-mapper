@@ -61,9 +61,15 @@ export default function SellerFileList() {
                 {data.items.map((file) => (
                   <TableRow key={file.id}>
                     <TableCell>{file.fileName}</TableCell>
-                    <TableCell>{file.columns.join(", ")}</TableCell>
                     <TableCell>
-                      {new Date(file.createdAt).toLocaleString()}
+                      {file.columns.length > 8
+                        ? `${file.columns.slice(0, 8).join(", ")}, ...`
+                        : file.columns.join(", ")}
+                    </TableCell>
+                    <TableCell>
+                    {new Date(file.createdAt).toLocaleString()}
+                  
+                      {/* {new Date(file.createdAt).toLocaleString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minute: '2-digit', hour12: true })} */}
                     </TableCell>
                     <TableCell className="text-right">
                       <Button variant="outline" size="sm" asChild>
